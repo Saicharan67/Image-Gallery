@@ -43,6 +43,7 @@ input{
 .cards{
     width: 950px;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     
 }

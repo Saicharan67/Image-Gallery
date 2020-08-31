@@ -11,7 +11,7 @@ const ImageCard = (props) =>{
         
         
         />
-        <button  className="btn" value ={props.id} onClick={myfucn}>Remove</button>
+        <button  className="btn" value ={props.id} onClick={myfucn}><i className="fa fa-trash fa-2x" aria-hidden="true"></i></button>
         </div>
     )
 }
