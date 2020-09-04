@@ -43,6 +43,7 @@ input {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .add-btn-2 {
   width: 150px;

@@ -2,7 +2,7 @@ import React from "react";
 import ImageCard from "../imagecards/image.js";
 import "./style.css";
 import Modal from "react-awesome-modal";
-
+import GalleryFolder from "../Galley-Folders/folder.js";
 // include styles
 
 class Gallery extends React.Component {
@@ -15,12 +15,14 @@ class Gallery extends React.Component {
         images: this.rememberMe,
         currentAddress: "",
         visible: false,
+        Folders: [],
       };
     } else {
       this.state = {
         images: [],
         currentAddress: "",
         visible: false,
+        Folders: [],
       };
     }
   }
@@ -37,8 +39,15 @@ class Gallery extends React.Component {
   }
   onaddFolder = (event) => {
     const FolderName = document.getElementById("input-folder").value;
+    const f = [...this.state.Folders];
     console.log(FolderName);
+    f.push(FolderName);
+    this.setState({
+      Folders: f,
+    });
+    localStorage.setItem("Folders", JSON.stringify(f));
     this.closeModal();
+    document.getElementById("input-folder").value = "";
   };
 
   onaddressChange = (event) => {
@@ -49,7 +58,10 @@ class Gallery extends React.Component {
 
   onaddimage = (event) => {
     const n = [...this.state.images];
-
+    if (!this.state.currentAddress) {
+      alert("Please Enter Url");
+      return;
+    }
     n.push(this.state.currentAddress);
     localStorage.setItem("IMGS", JSON.stringify(n));
     this.setState({
@@ -105,6 +117,11 @@ class Gallery extends React.Component {
               </button>
             </div>
           </Modal>
+        </div>
+        <div className="cards">
+          {this.state.Folders.map((Fol) => {
+            return <GalleryFolder name={Fol} />;
+          })}
         </div>
         <div className="cards">
           {this.state.images.map((b, index) => {
