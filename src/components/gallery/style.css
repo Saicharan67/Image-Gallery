@@ -1,49 +1,69 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
-.root-container{
-    width: 100%;
-    min-height: 100vh;
+.root-container {
+  width: 100%;
+  min-height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.title{
-    font-size:20px;
-    font-style: italic;
+.title {
+  font-size: 20px;
+  font-style: italic;
 }
-.input-box{
-width: 400px;
-height: auto;
+.input-box {
+  width: 400px;
+  height: auto;
 
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  width: 100%;
+  height: 40px;
+  border: 1px lightgray solid;
+  border-radius: 6px;
+  padding: 10px;
+}
+.add-btn {
+  width: 80px;
+  height: 40px;
+  margin: 10px;
+  color: white;
+  border-radius: 6px;
+  background-color: black;
+}
+.cards {
+  width: 950px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.add-btn-2 {
+  width: 150px;
+  height: 40px;
+  margin: 10px;
+  color: white;
+  border-radius: 6px;
+  background-color: black;
+}
 
-}
-input{
-
-    width: 100%;
-    height: 40px;
-    border: 1px lightgray solid;
-    border-radius: 6px ;
-    padding: 10px;
-}
-.add-btn{
- width: 80px;
- height: 40px;
- margin:10px;
- color:white;
- border-radius:6px;
- background-color:black;
-}
-.cards{
-    width: 950px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
+/* .Modal > .create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+} */
+.create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  justify-content: center;
 }
