@@ -38,13 +38,7 @@ input {
   border-radius: 6px;
   background-color: black;
 }
-.cards {
-  width: 950px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
+
 .add-btn-2 {
   width: 150px;
   height: 40px;
@@ -54,17 +48,69 @@ input {
   background-color: black;
 }
 
-/* .Modal > .create {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #000;
-} */
 .create {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
   justify-content: center;
+}
+.content {
+  background-color: #fff;
+  overflow: auto;
+}
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.add-btn-div {
+  text-align: center;
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+.content::-webkit-scrollbar {
+  display: none;
+}
+.content ul {
+  padding: 0;
+  margin: 0;
+}
+.item {
+  width: 400px;
+  height: 40px;
+  min-height: 40px;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li:hover {
+  cursor: pointer;
+  transform: scale(1.02, 1.02);
+}
+.item i {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  height: 20px;
+  width: 20px;
+  left: 20px;
+  top: 1px;
+  background-color: #fff;
+}
+
+.item p {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  left: 70px;
+  top: 3px;
+  background-color: #fff;
 }

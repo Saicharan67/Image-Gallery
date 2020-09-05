@@ -1,7 +1,8 @@
 import React from "react";
-import ImageCard from "../imagecards/image.js";
+
 import "./style.css";
 import Modal from "react-awesome-modal";
+import Rodal from "rodal";
 import GalleryFolder from "../Galley-Folders/folder.js";
 // include styles
 
@@ -9,22 +10,30 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
 
-    this.rememberMe = JSON.parse(localStorage.getItem("IMGS"));
-    if (this.rememberMe) {
-      this.state = {
-        images: this.rememberMe,
-        currentAddress: "",
-        visible: false,
-        Folders: [],
-      };
-    } else {
-      this.state = {
-        images: [],
-        currentAddress: "",
-        visible: false,
-        Folders: [],
-      };
-    }
+    // this.rememberMe = JSON.parse(localStorage.getItem("IMGS"));
+    // if (this.rememberMe) {
+    //   this.state = {
+    //     images: this.rememberMe,
+    //     currentAddress: "",
+    //     visible: false,
+    //     visible2: false,
+    //     Folders: [],
+    //   };
+    // } else {
+    //   this.state = {
+    //     images: [],
+    //     currentAddress: "",
+    //     visible: false,
+    //     visible2: false,
+    //     Folders: [],
+    //   };
+    // }
+    this.state = {
+      currentAddress: "",
+      visible: false,
+      visible2: false,
+      Folders: {},
+    };
   }
   openModal() {
     this.setState({
@@ -37,15 +46,54 @@ class Gallery extends React.Component {
       visible: false,
     });
   }
+  openModal2() {
+    this.setState({
+      visible2: true,
+    });
+  }
+
+  closeModal2() {
+    this.setState({
+      visible2: false,
+    });
+  }
+  FolderSelect = (event) => {
+    const val = event.target.id;
+    const lol = { ...this.state.Folders };
+
+    lol[val].push(this.state.currentAddress);
+    // console.log(lol);
+    this.setState({
+      Folders: lol,
+    });
+    const x = lol[val];
+    console.log(x);
+
+    this.closeModal2();
+    event.target.value = false;
+  };
   onaddFolder = (event) => {
     const FolderName = document.getElementById("input-folder").value;
-    const f = [...this.state.Folders];
+
+    const f = { ...this.state.Folders };
+    if (!FolderName) {
+      alert("Please Enter Valid Folder Name");
+      return;
+    }
+    if (
+      Object.keys(f).find((x) => {
+        return x == FolderName;
+      })
+    ) {
+      alert("Please Enter Other Name");
+      return;
+    }
     console.log(FolderName);
-    f.push(FolderName);
+    f[FolderName] = [];
     this.setState({
       Folders: f,
     });
-    localStorage.setItem("Folders", JSON.stringify(f));
+
     this.closeModal();
     document.getElementById("input-folder").value = "";
   };
@@ -55,30 +103,28 @@ class Gallery extends React.Component {
       currentAddress: event.target.value,
     });
   };
+  ondelete = (event1, event2) => {
+    console.log(event1, event2);
+    let vt = { ...this.state.Folders };
 
-  onaddimage = (event) => {
-    const n = [...this.state.images];
-    if (!this.state.currentAddress) {
-      alert("Please Enter Url");
-      return;
-    }
-    n.push(this.state.currentAddress);
-    localStorage.setItem("IMGS", JSON.stringify(n));
+    vt[event1].splice(event2, 1);
     this.setState({
-      images: n,
-      currentAddress: "",
+      Folders: vt,
     });
   };
-  Ondelete = (ide) => {
-    let vt = [...this.state.images];
-    console.log(ide);
-    vt.splice(ide, 1);
-    this.setState({
-      images: vt,
-    });
-
-    localStorage.setItem("IMGS", JSON.stringify(vt));
-  };
+  // onaddimage = (event) => {
+  //   const n = [...this.state.images];
+  //   if (!this.state.currentAddress) {
+  //     alert("Please Enter Url");
+  //     return;
+  //   }
+  //   n.push(this.state.currentAddress);
+  //   localStorage.setItem("IMGS", JSON.stringify(n));
+  //   this.setState({
+  //     images: n,
+  //     currentAddress: "",
+  //   });
+  // };
 
   render = () => {
     return (
@@ -91,12 +137,36 @@ class Gallery extends React.Component {
             type="text"
             placeholder="Enter Image Url"
           ></input>
-          <button onClick={this.onaddimage} className="add-btn">
+          <button onClick={() => this.openModal2()} className="add-btn">
             Add
           </button>
           <button onClick={() => this.openModal()} className="add-btn-2">
             Create New Folder
           </button>
+          <Modal
+            visible={this.state.visible2}
+            width="400"
+            height="330"
+            effect="fadeInLeft"
+            onClickAway={() => this.closeModal2()}
+            className="Modal2"
+          >
+            <div className="add-btn-div">
+              <h3>Add to...</h3>
+              <div className="content">
+                <ul id="list">
+                  {Object.keys(this.state.Folders).map((fol) => {
+                    return (
+                      <li className="item" id={fol} onClick={this.FolderSelect}>
+                        <i class="fa fa-folder fa-2x"></i>
+                        <p>{fol}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </Modal>
 
           <Modal
             visible={this.state.visible}
@@ -119,18 +189,12 @@ class Gallery extends React.Component {
           </Modal>
         </div>
         <div className="cards">
-          {this.state.Folders.map((Fol) => {
-            return <GalleryFolder name={Fol} />;
-          })}
-        </div>
-        <div className="cards">
-          {this.state.images.map((b, index) => {
+          {Object.keys(this.state.Folders).map((Fol) => {
             return (
-              <ImageCard
-                key={Math.random() * 100}
-                id={index}
-                currentAddress={b}
-                WhenClicked={this.Ondelete}
+              <GalleryFolder
+                delete={this.ondelete}
+                Images={this.state.Folders[Fol]}
+                name={Fol}
               />
             );
           })}
