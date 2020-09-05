@@ -65,12 +65,12 @@ class Gallery extends React.Component {
     // console.log(lol);
     this.setState({
       Folders: lol,
+      currentAddress: "",
     });
     const x = lol[val];
     console.log(x);
 
     this.closeModal2();
-    event.target.value = false;
   };
   onaddFolder = (event) => {
     const FolderName = document.getElementById("input-folder").value;
@@ -112,19 +112,6 @@ class Gallery extends React.Component {
       Folders: vt,
     });
   };
-  // onaddimage = (event) => {
-  //   const n = [...this.state.images];
-  //   if (!this.state.currentAddress) {
-  //     alert("Please Enter Url");
-  //     return;
-  //   }
-  //   n.push(this.state.currentAddress);
-  //   localStorage.setItem("IMGS", JSON.stringify(n));
-  //   this.setState({
-  //     images: n,
-  //     currentAddress: "",
-  //   });
-  // };
 
   render = () => {
     return (
