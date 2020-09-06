@@ -10,7 +10,6 @@ const ImageCard = (props) => {
         <img src={props.currentAddress} />
         <button className="btn" value={props.id} onClick={myfucn}>
           <i
-            id="i"
             style={{ color: "#f5f5f5" }}
             className="fa fa-trash fa-2x"
             aria-hidden="true"

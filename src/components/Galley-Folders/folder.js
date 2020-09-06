@@ -2,9 +2,22 @@ import React from "react";
 import ImageCard from "../imagecards/image.js";
 import "./style.css";
 const GalleryFolder = (props) => {
+  const myfuc = (event) => {
+    props.When(props.name);
+  };
   return (
     <div className="folder">
-      <h3>{props.name}</h3>
+      <section>
+        <h3>{props.name}</h3>
+
+        <i
+          id="i2"
+          style={{ color: "#000" }}
+          className="fa fa-trash fa-2x"
+          aria-hidden="true"
+          onClick={myfuc}
+        ></i>
+      </section>
       <div className="cards">
         {props.Images.map((b, index) => {
           return (

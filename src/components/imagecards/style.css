@@ -22,6 +22,6 @@ img {
   font-family: "Times New Roman", Times, serif;
 }
 
-.i:hover {
+i:hover {
   transform: scale(1.1, 1.1);
 }

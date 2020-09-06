@@ -10,30 +10,29 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.rememberMe = JSON.parse(localStorage.getItem("IMGS"));
-    // if (this.rememberMe) {
-    //   this.state = {
-    //     images: this.rememberMe,
-    //     currentAddress: "",
-    //     visible: false,
-    //     visible2: false,
-    //     Folders: [],
-    //   };
-    // } else {
-    //   this.state = {
-    //     images: [],
-    //     currentAddress: "",
-    //     visible: false,
-    //     visible2: false,
-    //     Folders: [],
-    //   };
-    // }
-    this.state = {
-      currentAddress: "",
-      visible: false,
-      visible2: false,
-      Folders: {},
-    };
+    this.rememberMe = JSON.parse(localStorage.getItem("Folder"));
+    if (this.rememberMe) {
+      this.state = {
+        currentAddress: "",
+        visible: false,
+        visible2: false,
+        Folders: this.rememberMe,
+      };
+    } else {
+      this.state = {
+        currentAddress: "",
+        visible: false,
+        visible2: false,
+        Folders: {},
+      };
+    }
+    // localStorage.clear();
+    // this.state = {
+    //   currentAddress: "",
+    //   visible: false,
+    //   visible2: false,
+    //   Folders: {},
+    // };
   }
   openModal() {
     this.setState({
@@ -47,6 +46,15 @@ class Gallery extends React.Component {
     });
   }
   openModal2() {
+    if (!this.state.currentAddress) {
+      alert("Please Enter Url");
+      return;
+    }
+    if (Object.keys(this.state.Folders).length === 0) {
+      this.openModal();
+      return;
+    }
+    console.log(this.state.Folders);
     this.setState({
       visible2: true,
     });
@@ -57,18 +65,18 @@ class Gallery extends React.Component {
       visible2: false,
     });
   }
+
   FolderSelect = (event) => {
     const val = event.target.id;
     const lol = { ...this.state.Folders };
 
     lol[val].push(this.state.currentAddress);
-    // console.log(lol);
+
     this.setState({
       Folders: lol,
       currentAddress: "",
     });
-    const x = lol[val];
-    console.log(x);
+    localStorage.setItem("Folder", JSON.stringify(lol));
 
     this.closeModal2();
   };
@@ -76,6 +84,7 @@ class Gallery extends React.Component {
     const FolderName = document.getElementById("input-folder").value;
 
     const f = { ...this.state.Folders };
+
     if (!FolderName) {
       alert("Please Enter Valid Folder Name");
       return;
@@ -88,11 +97,17 @@ class Gallery extends React.Component {
       alert("Please Enter Other Name");
       return;
     }
-    console.log(FolderName);
+
     f[FolderName] = [];
+    if (Object.keys(f).length === 1 && this.state.currentAddress) {
+      f[FolderName].push(this.state.currentAddress);
+    }
     this.setState({
       Folders: f,
+      currentAddress: "",
     });
+    console.log(f);
+    localStorage.setItem("Folder", JSON.stringify(f));
 
     this.closeModal();
     document.getElementById("input-folder").value = "";
@@ -111,8 +126,29 @@ class Gallery extends React.Component {
     this.setState({
       Folders: vt,
     });
+    localStorage.setItem("Folder", JSON.stringify(vt));
   };
+  FolderDelete = (event) => {
+    const pro = { ...this.state.Folders };
 
+    if (pro[event].length != 0) {
+      if (
+        window.confirm("Do you Really Want To Permanently Delete The Folder")
+      ) {
+        delete pro[event];
+        this.setState({
+          Folders: pro,
+        });
+        localStorage.setItem("Folder", JSON.stringify(pro));
+      }
+    } else {
+      delete pro[event];
+      this.setState({
+        Folders: pro,
+      });
+      localStorage.setItem("Folder", JSON.stringify(pro));
+    }
+  };
   render = () => {
     return (
       <div className="root-container">
@@ -182,6 +218,7 @@ class Gallery extends React.Component {
                 delete={this.ondelete}
                 Images={this.state.Folders[Fol]}
                 name={Fol}
+                When={this.FolderDelete}
               />
             );
           })}
