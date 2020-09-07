@@ -55,6 +55,10 @@ input {
   margin: 20px;
   justify-content: center;
 }
+.create i {
+  position: absolute;
+  top: 60px;
+}
 .content {
   background-color: #fff;
   overflow: auto;

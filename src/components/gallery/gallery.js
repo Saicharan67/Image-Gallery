@@ -26,13 +26,6 @@ class Gallery extends React.Component {
         Folders: {},
       };
     }
-    // localStorage.clear();
-    // this.state = {
-    //   currentAddress: "",
-    //   visible: false,
-    //   visible2: false,
-    //   Folders: {},
-    // };
   }
   openModal() {
     this.setState({
@@ -205,9 +198,12 @@ class Gallery extends React.Component {
                 type="text"
                 placeholder="Enter Folder Name"
               ></input>
-              <button onClick={this.onaddFolder} className="add-btn">
-                Add Folder
-              </button>
+
+              <i
+                onClick={this.onaddFolder}
+                className="fa fa-folder-open fa-2x"
+                aria-hidden="true"
+              ></i>
             </div>
           </Modal>
         </div>
