@@ -13,9 +13,69 @@
   align-items: center;
   flex-direction: column;
 }
-.title {
-  font-size: 20px;
-  font-style: italic;
+.clip-text {
+  font-size: 2.7em;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0.25em;
+  padding: 0.5em 0.75em;
+  text-align: center;
+  /* Color fallback */
+  color: #fff;
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.clip-text:before,
+.clip-text:after {
+  position: absolute;
+  content: "";
+}
+
+/* Background */
+.clip-text:before {
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: inherit;
+}
+
+/* Text Background (black zone) */
+.clip-text:after {
+  position: absolute;
+  z-index: -1;
+  top: 0.125em;
+  right: 0.125em;
+  bottom: 0.125em;
+  left: 0.125em;
+}
+
+/* Change the background position to display letter when the black zone isn't here */
+.clip-text--no-textzone:before {
+  background-position: -0.75em 0;
+}
+
+.clip-text--no-textzone:after {
+  content: none;
+}
+
+/* Use Background-size cover for photo background and no-repeat background */
+.clip-text--cover,
+.clip-text--cover:before {
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* Background image from http://thepatternlibrary.com/ and http://lorempixel.com */
+.clip-text_one {
+  background-color: #f2f2f2;
 }
 .input-box {
   width: 400px;

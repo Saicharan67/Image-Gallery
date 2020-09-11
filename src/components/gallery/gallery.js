@@ -38,19 +38,38 @@ class Gallery extends React.Component {
       visible: false,
     });
   }
+
   openModal2() {
     if (!this.state.currentAddress) {
-      alert("Please Enter Url");
+      alert(`Please Enter Url ${String.fromCodePoint(128554)}`);
       return;
     }
-    if (Object.keys(this.state.Folders).length === 0) {
-      this.openModal();
-      return;
-    }
-    console.log(this.state.Folders);
-    this.setState({
-      visible2: true,
-    });
+    let isimage = 0;
+    fetch(this.state.currentAddress, { method: "HEAD" })
+      .then((res) => {
+        if (res.ok) {
+          if (Object.keys(this.state.Folders).length === 0) {
+            this.openModal();
+            return;
+          }
+
+          this.setState({
+            visible2: true,
+          });
+        }
+      })
+      .catch((err) => {
+        isimage = 1;
+        console.log("dverg");
+        this.setState({
+          currentAddress: " ",
+        });
+        if (isimage == 1) {
+          console.log("came");
+          alert(`Url Does not Exist..${String.fromCodePoint(128549)}`);
+          return;
+        }
+      });
   }
 
   closeModal2() {
@@ -145,7 +164,9 @@ class Gallery extends React.Component {
   render = () => {
     return (
       <div className="root-container">
-        <p className="title">......Image Gallery......</p>
+        <p className="heading">
+          <div class="clip-text clip-text_one">Image Gallery</div>
+        </p>
         <div className="input-box">
           <input
             onChange={this.onaddressChange}
