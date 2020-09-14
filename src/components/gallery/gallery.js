@@ -70,6 +70,15 @@ class Gallery extends React.Component {
           return;
         }
       });
+    if (Object.keys(this.state.Folders).length === 0) {
+      this.setState({
+        visible: true,
+      });
+      return;
+    }
+    this.setState({
+      visible2: true,
+    });
   }
 
   closeModal2() {
@@ -172,6 +181,7 @@ class Gallery extends React.Component {
             onChange={this.onaddressChange}
             value={this.state.currentAddress}
             type="text"
+            className="enter"
             placeholder="Enter Image Url"
           ></input>
           <button onClick={() => this.openModal2()} className="add-btn">
@@ -218,6 +228,7 @@ class Gallery extends React.Component {
                 id="input-folder"
                 type="text"
                 placeholder="Enter Folder Name"
+                className="enter2"
               ></input>
 
               <i
