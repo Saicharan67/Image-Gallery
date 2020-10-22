@@ -60,12 +60,11 @@ class Gallery extends React.Component {
       })
       .catch((err) => {
         isimage = 1;
-        console.log("dverg");
+
         this.setState({
           currentAddress: " ",
         });
         if (isimage == 1) {
-          console.log("came");
           alert(`Url Does not Exist..${String.fromCodePoint(128549)}`);
           return;
         }
