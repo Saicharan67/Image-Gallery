@@ -6,21 +6,9 @@
 
 #### With the help of Delete Button You Can Delete any Images If You Want
 
-ScreenShots of The project are ...👇👇👇
+ScreenShots of The project ...👇👇👇
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+![alt text](src/assets/1.png?raw=true "app")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
