@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ImageCard from "../imagecards/image.js";
 import "./style.css";
 const GalleryFolder = (props) => {
   const myfuc = (event) => {
     props.When(props.name);
   };
-  useEffect(() => {
-    const xy = document.getElementById("NO");
-    if (props.Images.length != 0) {
-      xy.style.display = "none";
-    }
-  });
+  
   return (
     <div className="folder">
       <section>
@@ -25,7 +20,7 @@ const GalleryFolder = (props) => {
         ></i>
         <i
           id="NO"
-          style={{ color: "#cbcbcb" }}
+          style={{ display: props.Images.length?'none':'inline'}}
           className="fa fa-file-image-o fa-5x"
           aria-hidden="true"
         ></i>

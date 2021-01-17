@@ -17,6 +17,8 @@
   justify-content: space-evenly;
 }
 #NO {
+  display: inline;
+  color: #cbcbcb;
   position: absolute;
   top: 40%;
 }

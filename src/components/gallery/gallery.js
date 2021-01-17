@@ -52,15 +52,17 @@ class Gallery extends React.Component {
             this.openModal();
             return;
           }
-
           this.setState({
             visible2: true,
           });
+          
         }
       })
       .catch((err) => {
         isimage = 1;
-
+        this.setState({
+          visible2: false,
+        });
         this.setState({
           currentAddress: " ",
         });
@@ -75,9 +77,7 @@ class Gallery extends React.Component {
       });
       return;
     }
-    this.setState({
-      visible2: true,
-    });
+    // 
   }
 
   closeModal2() {
@@ -86,11 +86,11 @@ class Gallery extends React.Component {
     });
   }
 
-  FolderSelect = (event) => {
-    const val = event.target.id;
+  FolderSelect = (fol) => {
+    
     const lol = { ...this.state.Folders };
-
-    lol[val].push(this.state.currentAddress);
+   
+    lol[fol].push(this.state.currentAddress);
 
     this.setState({
       Folders: lol,
@@ -203,7 +203,7 @@ class Gallery extends React.Component {
                 <ul id="list">
                   {Object.keys(this.state.Folders).map((fol) => {
                     return (
-                      <li className="item" id={fol} onClick={this.FolderSelect}>
+                      <li className="item" id={fol} onClick={()=>this.FolderSelect(fol)}>
                         <i class="fa fa-folder fa-2x"></i>
                         <p>{fol}</p>
                       </li>
