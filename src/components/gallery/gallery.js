@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./style.css";
 import Modal from "react-awesome-modal";
@@ -44,7 +44,7 @@ class Gallery extends React.Component {
       alert(`Please Enter Url ${String.fromCodePoint(128554)}`);
       return;
     }
-    let isimage = 0;
+    let isimage = 0
     fetch(this.state.currentAddress, { method: "HEAD" })
       .then((res) => {
         if (res.ok) {
@@ -55,11 +55,16 @@ class Gallery extends React.Component {
           this.setState({
             visible2: true,
           });
-          
+          if (Object.keys(this.state.Folders).length === 0) {
+   
+            this.setState({
+              visible: true,
+          });
+          }
         }
       })
       .catch((err) => {
-        isimage = 1;
+        isimage = 1
         this.setState({
           visible2: false,
         });
@@ -71,14 +76,11 @@ class Gallery extends React.Component {
           return;
         }
       });
-    if (Object.keys(this.state.Folders).length === 0) {
-      this.setState({
-        visible: true,
-      });
+    
       return;
     }
     // 
-  }
+  
 
   closeModal2() {
     this.setState({
